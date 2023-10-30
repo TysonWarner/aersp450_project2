@@ -1,0 +1,206 @@
+% Document Set-Up
+\documentclass[12pt, letterpaper]{aiaa-tc}
+
+\usepackage{graphicx}
+\graphicspath{{Graphics/}}
+
+\usepackage{amsmath}
+
+\usepackage{xcolor}
+\definecolor{navy}{RGB}{0, 0, 139}
+
+\usepackage{titlesec}
+
+\title{Project 2: Maneuver Reconstruction}
+\author{Tyson Warner and Jack Pence}
+\date{November 12, 2023}
+
+\setlength{\parskip}{1em}
+
+\begin{document}
+
+\renewcommand\thesection{\Roman{section}}
+\titleformat{\section}[hang]
+  {\fontsize{12pt}{12.4pt}\color{navy}\bfseries}
+  {\thesection.}
+  {0.5em}
+  {}
+
+\maketitle
+
+\newpage
+
+\section{PROJECT STATEMENT: MANEUVER RECONSTRUCTION}
+
+Maneuver reconstruction is an important part of the astrodynamics suite of applications. Specially in sparse data
+environments, or in the event that teh spacecraft is performing multiple maneuvers, identifying how much delta-v
+was expended is an important metric in characterizing the capabilities of a satelltie. In this project, we will idealize
+a simplified maneuver reconstruction experiment.
+
+Consider a spacecraft that is continuously being tracked. The ground station looses tracking when a maneuver
+is performed, but has regained its custody at a later time. (Maneuver detection and tracking is another important
+and difficult problem in astrodynamic. For this project, let us assume that this problem is solved). A schematic of
+one such maneuver reconstruction is shown as follows:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{maneuver_reconstruction_schematic}
+    \caption{Maneuver Reconstruction Schematic.}
+    \label{fig:maneuver_reconstruction_schematic}
+\end{figure}
+
+We will utilize Gauss’ initial orbit determination to identify the orbit that the spacecraft occupies before and
+after the maneuver and calculate how much delta-v was used to transfer between them.
+
+
+\section{ANALYTICAL PART: COMPUTING THE MANEUVER}
+
+Given the pre-maneuver and post-maneuver orbit parameters, compute the delta-v used to transfer from one to the
+other. Let us assume a coplanar case for this project, i.e. the inclination and RAAN of the pre and post-maneuver
+orbit are the same. However, the argument of perigee may be different.
+
+In such a case, let us suppose that we adopt the perifocal reference frame for the first ellipse. In this reference
+frame, then, the argument of periapsis of the second ellipse is rotated counter-clockwise from the x-axis by an
+angle $\Delta\omega$ - where $\Delta\omega$ is the difference in the argument of periapsis of the two co-planar orbits.
+
+So, the radial distance of a satellite on the first orbit can be thought of as:
+
+\[ r_1=\frac{p_1}{1+e_1 cos(f)} \]
+
+and that on the second orbit is:
+
+\[ r_2=\frac{p_2}{1+e_2 cos(f-\Delta\omega)} \]
+
+If the two orbits intersect, the two radial distances must be equal:
+
+\[ r_1=r_2=r \]
+
+Our aim in this analytical part of the project is to find the value of the radius where the two orbits intersect. This
+leads to a quadratic equation in the free variable $r$. Let’s go about this step-by-step.
+
+\raggedright \textit{A. Derivation of radius of intersecting orbits}
+\begin{enumerate}
+    
+    \item Using the first relation:
+    \[ r_1=\frac{p_1}{1+e_1 cos(f)} \]
+    rearrange to identify an expression for $cos(f)$. Also, using trigonometric identities, identify an expression for
+    $r^{2}sin^{2}(f)$. We will keep these quantities aside, as we will be using them at a later step.
+    
+    \textbf{SOLUTION:}
+    
+    Using $r_1=r$ and solving for $cos(f)$:
+    \[ cos(f)=\frac{1}{e_1}\left (\frac{p_1}{r}-1 \right) \]
+    Solving for $r^2sin^2(f)$ using Pythagoras' theorem ($sin^2(f)=1-cos^2(f)$) and squaring the previous, rearranged expression:
+    \[ r^2sin^2(f) = r^2(1-cos^2(f)) \]
+    \[ r^2sin^2(f) = r^2\left (1- \left(\frac{1}{e_1}\left (\frac{p_1}{r}-1 \right)\right)^2 \right) \]
+    Expanding this expression (this will be helpful for step 5):
+    \[ r^2sin^2(f) = \left(\frac{e_1^2-1}{e_1^2}\right)r^2+\left(\frac{2p_1}{e_1^2}\right)r+\left(-\frac{p_1^2}{e_1^2}\right) \]
+    \item Using the relation
+    \[ r_2=\frac{p_2}{1+e_2 cos(f-\Delta\omega)} \]
+    rearrange to identify an expression for $cos(f-\Delta\omega)$
+
+    \textbf{SOLUTION:}
+
+    Repeat the first part of step 1 but replacing subscripts and substituting $cos(f-\Delta\omega)$ for $cos(f)$:
+    \[ cos(f-\Delta\omega)=\frac{1}{e_2}\left (\frac{p_2}{r}-1 \right) \]
+    
+    \item Expand the above expression using the trigonometric identity for $cos(A-B)$
+    and rearrange to find an expression for $rsin(f)$. After this step, you may also substitute the expression for 
+    $cos(f)$ from step 1.
+    \\On performing this step, you should find the resulting expressions contain the terms:
+    \[ \alpha=e_2cos(\Delta\omega)-e_1 \]
+    \[ \beta=e_1p_2-e_2p_1cos(\Delta\omega) \]
+    \[ \gamma=e_1e_2sin(\Delta\omega) \]
+    you may use these placeholder variables ($\alpha$, $\beta$, $\gamma$) to simplify your math process.
+
+    \textbf{SOLUTION:}
+
+    Expanding the resulting expression from step 2 and solving for $sin(f)$:
+    \[ cos(f-\Delta\omega)=cos(f)cos(\Delta\omega)-sin(f)sin(\Delta\omega) \]
+    \[ sin(f)=\frac{cos(f-\Delta\omega)-cos(f)cos(\Delta\omega)}{sin(\Delta\omega)} \]
+    Multiplying $r$ to both sides:
+    \[ rsin(f)=r\left(\frac{cos(f-\Delta\omega)-cos(f)cos(\Delta\omega)}{sin(\Delta\omega)}\right) \]
+    Substituting the results from steps 1 and 2:
+    \[ rsin(f)=r\left(\frac{\frac{1}{e_2}\left (\frac{p_2}{r}-1 \right)-\frac{1}{e_1}\left (\frac{p_1}{r}-1 \right)cos(\Delta\omega)}{sin(\Delta\omega)}\right) \]
+    Simplifying by factoring out $\frac{1}{r}$ in the numberator and multiplying the numberator and denominator by $e_1$ and $e_2$:
+    \[ rsin(f)=\left(\frac{e_1(p_2-r)-e_2(p_1-r)cos(\Delta\omega)}{e_1e_2sin(\Delta\omega)}\right) \]
+    \[ rsin(f)=\left(\frac{(e_2cos(\Delta\omega)-e_1)r+e_1p_2-e_2p_1cos(\Delta\omega)}{e_1e_2sin(\Delta\omega)}\right) \]
+    Substituting for the placeholder variables mentioned earlier in this step:
+    \[ rsin(f)=\frac{\alpha r+\beta}{\gamma} \]
+
+    \item Now, you may square the resulting expression on either side to obtain another expression for 
+    $r^2sin^2(f)$ i.e., you will obtain an expression as:
+    \[r^2sin^2(f)= \]
+    
+    \textbf{SOLUTION:}
+    
+    Squaring both sides of the resulting expression from step 3:
+    \[ r^2sin^2(f)=\frac{(\alpha r+\beta)^2}{\gamma^2} \]
+    Expanding this expression (this will be helpful for the next step):
+    \[ r^2sin^2(f)=\frac{\alpha^2}{\gamma^2}r^2+2\frac{\alpha\beta}{\gamma^2}r+\frac{\beta^2}{\gamma^2} \]
+
+    \item  Plug in your relation for $r^2sin^2(f)$ from step 1. At this stage, we have eliminated true anomaly from the equations.
+
+    \textbf{SOLUTION:}
+
+    Equating the results for $r^2sin^2(f)$ from steps 1 and 4:
+    
+    \[ \left(r^2sin^2(f)\right)_{step 1}=\left(r^2sin^2(f)\right)_{step 4} \]
+    \[ \left(\frac{e_1^2-1}{e_1^2}\right)r^2+\left(\frac{2p_1}{e_1^2}\right)r+\left(-\frac{p_1^2}{e_1^2}\right)=\left(\frac{\alpha^2}{\gamma^2}\right)r^2+\left(\frac{2\alpha\beta}{\gamma^2}\right)r+\left(\frac{\beta^2}{\gamma^2}\right) \]
+    
+    \item You will notice that you have a quadratic expression in $r$.
+    \[ ar^2+br+c=0 \]
+    Collect the terms that multiply $r^2$, $r$, and the constant term, i.e. $a$, $b$, $c$. These are the coefficients you will
+    use to compute the roots of a quadratic equation:
+    \[ r=\frac{-b\pm\sqrt{b^2-4ac}}{2a} \]
+    As the final step, you should obtain something of the form:
+    \[ a=\frac{e_1^2-1}{e_1^2}-\frac{\alpha^2}{\gamma^2} \]
+    \[ b=\frac{2p_1}{e_1^2}-\frac{2\alpha\beta}{\gamma^2} \]
+    \[ c=-\left(\frac{p_1^2}{e_1^2}+\frac{\beta^2}{\gamma^2}\right) \]
+
+    \textbf{SOLUTION:}
+
+    Collecting terms from the result of the previous step:
+    \[ \left(\frac{e_1^2-1}{e_1^2}\right)r^2+\left(\frac{2p_1}{e_1^2}\right)r+\left(-\frac{p_1^2}{e_1^2}\right)=\left(\frac{\alpha^2}{\gamma^2}\right)r^2+\left(\frac{2\alpha\beta}{\gamma^2}\right)r+\left(\frac{\beta^2}{\gamma^2}\right) \]
+    \[ \left(\frac{e_1^2-1}{e_1^2}-\frac{\alpha^2}{\gamma^2}\right)r^2+\left(\frac{2p_1}{e_1^2}-\frac{2\alpha\beta}{\gamma^2}\right)r+\left(-\left(\frac{p_1^2}{e_1^2}+\frac{\beta^2}{\gamma^2}\right)\right)=0 \]
+    Equating the previous result to a quadratic expression with constants $a$, $b$, and $c$ $\left(a^2r+br+c=0\right)$:
+    \[ a=\frac{e_1^2-1}{e_1^2}-\frac{\alpha^2}{\gamma^2} \]
+    \[ b=\frac{2p_1}{e_1^2}-\frac{2\alpha\beta}{\gamma^2} \]
+    \[ c=-\left(\frac{p_1^2}{e_1^2}+\frac{\beta^2}{\gamma^2}\right) \]
+\end{enumerate}
+
+\raggedright \textit{B. Testing the algorithm}
+
+Now, consider two sets of orbital elements of two spacecraft:
+
+
+\begin{table}[h]
+    \centering
+    \begin{tabular}{|l|l|l|}
+    \hline
+                        & Orbit 1 & Orbit 2  \\ \hline
+    semimajor axis (km) & 13000   & 7226.58  \\
+    eccentricity        & 0.3     & 0.444819 \\
+    inclination (deg)   & 20      & 20       \\
+    RAAN (deg)          & 30      & 30       \\
+    AOP (deg)           & 50      & 301.901  \\ \hline
+    \end{tabular}
+\end{table}
+
+\begin{enumerate}
+    \item Identify the radius at the intersecting point.
+    
+    \textbf{SOLUTION:}
+
+    \item Compute the position and velocity vectors at these points on the two orbits. Note, that position vectors will
+    be the same, but the velocity vectors may be different.
+    
+    \textbf{SOLUTION:}
+
+    \item Compute the delta-v at the intersection point to transfer from one orbit to another.
+    
+    \textbf{SOLUTION:}
+
+\end{enumerate}
+
+\end{document}
