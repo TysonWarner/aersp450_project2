@@ -192,6 +192,26 @@ Now, consider two sets of orbital elements of two spacecraft:
     
     \textbf{SOLUTION:}
 
+    Calculating semi-latus rectum (in km) using given eccentricities and semimajor axes for orbits 1 and 2 ($p_1$ and $p_2$ respectively):
+    \[ p_n=a_n\left(1-e_n^2\right) \]
+    \[ p_1=13000\left(1-(0.3)^2\right)=11830 \]
+    \[ p_2=7226.58\left(1-(0.444819)^2\right)=5796.7 \]
+    Calculating the difference in the argument of periapsis ($\Delta\omega$) between the two orbits:
+    \[ \Delta\omega=\omega_2-\omega_1=301.901^{\circ} -50^{\circ}=251.901^{\circ} \]
+    Calculating the constants from part A, step 3 ($\alpha$, $\beta$, $\gamma$):
+    \[ \alpha=e_2cos(\Delta\omega)-e_1=-0.4382 \]
+    \[ \beta=e_1p_2-e_2p_1cos(\Delta\omega)=3373.767 \]
+    \[ \gamma=e_1e_2sin(\Delta\omega)=-0.1268 \]
+    Calculating the constants from part A, step 6 ($a$, $b$, and $c$):
+    \[ a=\frac{e_1^2-1}{e_1^2}-\frac{\alpha^2}{\gamma^2}=-22.045 \]
+    \[ b=\frac{2p_1}{e_1^2}-\frac{2\alpha\beta}{\gamma^2}=446657.9 \]
+    \[ c=-\left(\frac{p_1^2}{e_1^2}+\frac{\beta^2}{\gamma^2}\right)=-2262440535.1 \]
+    Calculating the radius using the relation obtained from part A, step 6:
+    \[ r=\frac{-b\pm\sqrt{b^2-4ac}}{2a} \]
+    where the two possible solutions are $r=10129.35$ km and $r=10131.71$ km. 
+    Both values are valid solutions of where the orbits intersect, so we chose to continue
+    using $r=10129.35$ km.
+
     \item Compute the position and velocity vectors at these points on the two orbits. Note, that position vectors will
     be the same, but the velocity vectors may be different.
     
