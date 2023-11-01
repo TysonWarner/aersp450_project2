@@ -6,6 +6,8 @@
 
 \usepackage{amsmath}
 
+\usepackage{bm}
+
 \usepackage{xcolor}
 \definecolor{navy}{RGB}{0, 0, 139}
 
@@ -64,17 +66,17 @@ frame, then, the argument of periapsis of the second ellipse is rotated counter-
 angle $\Delta\omega$ - where $\Delta\omega$ is the difference in the argument of periapsis of the two co-planar orbits.
 
 So, the radial distance of a satellite on the first orbit can be thought of as:
-
-\[ r_1=\frac{p_1}{1+e_1 cos(f)} \]
-
+\begin{equation}
+    r_1=\frac{p_1}{1+e_1 cos(f)}
+    \label{eq:orbitequation1}
+\end{equation}
 and that on the second orbit is:
-
-\[ r_2=\frac{p_2}{1+e_2 cos(f-\Delta\omega)} \]
-
+\begin{equation}
+    r_2=\frac{p_2}{1+e_2 cos(f-\Delta\omega)}
+    \label{eq:orbitequation2}
+\end{equation}
 If the two orbits intersect, the two radial distances must be equal:
-
 \[ r_1=r_2=r \]
-
 Our aim in this analytical part of the project is to find the value of the radius where the two orbits intersect. This
 leads to a quadratic equation in the free variable $r$. Let’s go about this step-by-step.
 
@@ -89,21 +91,29 @@ leads to a quadratic equation in the free variable $r$. Let’s go about this st
     \textbf{SOLUTION:}
     
     Using $r_1=r$ and solving for $cos(f)$:
-    \[ cos(f)=\frac{1}{e_1}\left (\frac{p_1}{r}-1 \right) \]
+    \begin{equation}
+        cos(f)=\frac{1}{e_1}\left (\frac{p_1}{r}-1 \right)
+        \label{eq:cosf}
+    \end{equation}
     Solving for $r^2sin^2(f)$ using Pythagoras' theorem ($sin^2(f)=1-cos^2(f)$) and squaring the previous, rearranged expression:
     \[ r^2sin^2(f) = r^2(1-cos^2(f)) \]
     \[ r^2sin^2(f) = r^2\left (1- \left(\frac{1}{e_1}\left (\frac{p_1}{r}-1 \right)\right)^2 \right) \]
     Expanding this expression (this will be helpful for step 5):
-    \[ r^2sin^2(f) = \left(\frac{e_1^2-1}{e_1^2}\right)r^2+\left(\frac{2p_1}{e_1^2}\right)r+\left(-\frac{p_1^2}{e_1^2}\right) \]
-    \item Using the relation
+    \begin{equation}
+        r^2sin^2(f) = \left(\frac{e_1^2-1}{e_1^2}\right)r^2+\left(\frac{2p_1}{e_1^2}\right)r+\left(-\frac{p_1^2}{e_1^2}\right)
+        \label{eq:r^2sin^2f_1}
+    \end{equation}
+    \item Using the relation:
     \[ r_2=\frac{p_2}{1+e_2 cos(f-\Delta\omega)} \]
     rearrange to identify an expression for $cos(f-\Delta\omega)$
 
     \textbf{SOLUTION:}
 
     Repeat the first part of step 1 but replacing subscripts and substituting $cos(f-\Delta\omega)$ for $cos(f)$:
-    \[ cos(f-\Delta\omega)=\frac{1}{e_2}\left (\frac{p_2}{r}-1 \right) \]
-    
+    \begin{equation}
+        cos(f-\Delta\omega)=\frac{1}{e_2}\left (\frac{p_2}{r}-1 \right)
+        \label{eq:cos(f-dw)}
+    \end{equation}
     \item Expand the above expression using the trigonometric identity for $cos(A-B)$
     and rearrange to find an expression for $rsin(f)$. After this step, you may also substitute the expression for 
     $cos(f)$ from step 1.
@@ -115,7 +125,7 @@ leads to a quadratic equation in the free variable $r$. Let’s go about this st
 
     \textbf{SOLUTION:}
 
-    Expanding the resulting expression from step 2 and solving for $sin(f)$:
+    Expanding the resulting expression from Equation~\eqref{eq:cos(f-dw)} and solving for $sin(f)$:
     \[ cos(f-\Delta\omega)=cos(f)cos(\Delta\omega)-sin(f)sin(\Delta\omega) \]
     \[ sin(f)=\frac{cos(f-\Delta\omega)-cos(f)cos(\Delta\omega)}{sin(\Delta\omega)} \]
     Multiplying $r$ to both sides:
@@ -126,28 +136,34 @@ leads to a quadratic equation in the free variable $r$. Let’s go about this st
     \[ rsin(f)=\left(\frac{e_1(p_2-r)-e_2(p_1-r)cos(\Delta\omega)}{e_1e_2sin(\Delta\omega)}\right) \]
     \[ rsin(f)=\left(\frac{(e_2cos(\Delta\omega)-e_1)r+e_1p_2-e_2p_1cos(\Delta\omega)}{e_1e_2sin(\Delta\omega)}\right) \]
     Substituting for the placeholder variables mentioned earlier in this step:
-    \[ rsin(f)=\frac{\alpha r+\beta}{\gamma} \]
-
+    \begin{equation}
+        rsin(f)=\frac{\alpha r+\beta}{\gamma}
+        \label{eq:rsinf}
+    \end{equation}
     \item Now, you may square the resulting expression on either side to obtain another expression for 
     $r^2sin^2(f)$ i.e., you will obtain an expression as:
     \[r^2sin^2(f)= \]
     
     \textbf{SOLUTION:}
     
-    Squaring both sides of the resulting expression from step 3:
+    Squaring both sides of the resulting expression from Equation~\eqref{eq:rsinf}:
     \[ r^2sin^2(f)=\frac{(\alpha r+\beta)^2}{\gamma^2} \]
     Expanding this expression (this will be helpful for the next step):
-    \[ r^2sin^2(f)=\frac{\alpha^2}{\gamma^2}r^2+2\frac{\alpha\beta}{\gamma^2}r+\frac{\beta^2}{\gamma^2} \]
-
+    \begin{equation}
+        r^2sin^2(f)=\frac{\alpha^2}{\gamma^2}r^2+2\frac{\alpha\beta}{\gamma^2}r+\frac{\beta^2}{\gamma^2}
+        \label{eq:r^2sin^2f_2}
+    \end{equation}
     \item  Plug in your relation for $r^2sin^2(f)$ from step 1. At this stage, we have eliminated true anomaly from the equations.
 
     \textbf{SOLUTION:}
 
-    Equating the results for $r^2sin^2(f)$ from steps 1 and 4:
+    Equating the results for $r^2sin^2(f)$ from Equation~\eqref{eq:r^2sin^2f_1} and Equation~\eqref{eq:r^2sin^2f_2}:
     
     \[ \left(r^2sin^2(f)\right)_{step 1}=\left(r^2sin^2(f)\right)_{step 4} \]
-    \[ \left(\frac{e_1^2-1}{e_1^2}\right)r^2+\left(\frac{2p_1}{e_1^2}\right)r+\left(-\frac{p_1^2}{e_1^2}\right)=\left(\frac{\alpha^2}{\gamma^2}\right)r^2+\left(\frac{2\alpha\beta}{\gamma^2}\right)r+\left(\frac{\beta^2}{\gamma^2}\right) \]
-    
+    \begin{equation}
+        \left(\frac{e_1^2-1}{e_1^2}\right)r^2+\left(\frac{2p_1}{e_1^2}\right)r+\left(-\frac{p_1^2}{e_1^2}\right)=\left(\frac{\alpha^2}{\gamma^2}\right)r^2+\left(\frac{2\alpha\beta}{\gamma^2}\right)r+\left(\frac{\beta^2}{\gamma^2}\right)
+        \label{eq:full_solve_for_r}
+    \end{equation}
     \item You will notice that you have a quadratic expression in $r$.
     \[ ar^2+br+c=0 \]
     Collect the terms that multiply $r^2$, $r$, and the constant term, i.e. $a$, $b$, $c$. These are the coefficients you will
@@ -160,7 +176,7 @@ leads to a quadratic equation in the free variable $r$. Let’s go about this st
 
     \textbf{SOLUTION:}
 
-    Collecting terms from the result of the previous step:
+    Collecting terms from Equation~\eqref{eq:full_solve_for_r}:
     \[ \left(\frac{e_1^2-1}{e_1^2}\right)r^2+\left(\frac{2p_1}{e_1^2}\right)r+\left(-\frac{p_1^2}{e_1^2}\right)=\left(\frac{\alpha^2}{\gamma^2}\right)r^2+\left(\frac{2\alpha\beta}{\gamma^2}\right)r+\left(\frac{\beta^2}{\gamma^2}\right) \]
     \[ \left(\frac{e_1^2-1}{e_1^2}-\frac{\alpha^2}{\gamma^2}\right)r^2+\left(\frac{2p_1}{e_1^2}-\frac{2\alpha\beta}{\gamma^2}\right)r+\left(-\left(\frac{p_1^2}{e_1^2}+\frac{\beta^2}{\gamma^2}\right)\right)=0 \]
     Equating the previous result to a quadratic expression with constants $a$, $b$, and $c$ $\left(a^2r+br+c=0\right)$:
@@ -216,11 +232,68 @@ Now, consider two sets of orbital elements of two spacecraft:
     be the same, but the velocity vectors may be different.
     
     \textbf{SOLUTION:}
+    
+    Calculating $cos(f)$ using Equation~\eqref{eq:cosf}:
+    \[ cos(f)=\frac{1}{e_1}\left (\frac{p_1}{r}-1 \right)=0.5596 \]
+    Calculating $sin(f)$ using Equation~\eqref{eq:rsinf}:
+    \[ sin(f)=\frac{\alpha r+\beta}{r\gamma}=0.8287 \]
+    Solving for $f$ using a quadrant check between the two relations above:
+    \[ f=cos^{-1}(0.5596)=55.9689^{\circ}/-55.9689^{\circ} \]
+    \[ f=sin^{-1}(0.8287)=55.9689^{\circ}/124.0311^{\circ} \]
+    Using the value that is similar, $f=55.9689^{\circ}$.
+    Finding the position vector in the perifocal reference frame of the first orbit:
+    \[ \vec{r}_{perifocal}=r[cos(f)\quad sin(f)\quad 0]^T=[5668.82\quad 8394.54\quad 0]^T \]
+
+
+
 
     \item Compute the delta-v at the intersection point to transfer from one orbit to another.
     
     \textbf{SOLUTION:}
 
+\end{enumerate}
+
+\section{NUMERICAL PART}
+Now that you have performed the analytic part, the numerical part will have you implement an Initial Orbit
+Determination Algorithm. The following data has been provided to you:
+
+% include table
+In this data,
+\begin{enumerate}
+    \item The date and time of the observation is recorded
+    \item The Azimuth and Elevation values of the satellite expressed in a Topocentric Equatorial Frame are provided
+    in degrees
+    \item The telescope's position (on the Earth's surface) is provided in the inertial frame in km. You may be interested
+    to know that the telescope side is located at latitude = 31.9466 N and longitude = 108.8977 W, which is
+    also the proposed location of the Penn State University Dynamical Observatory (PSUDO) lab (check it out
+    on Google maps!)
+\end{enumerate}
+You may also load this data in using the .mat file attached using the matlab command:
+
+\quad load('IODMeasurements.mat')
+
+\raggedright \textit{A. Your tasks are the following:}
+
+\begin{enumerate}
+    \item Taking 3 measurements at a time in sequence, perform the Gauss' method of Initial Orbit Determination to
+    obtain the value of $\bm{r}_1$, $\bm{r}_2$, and $\bm{r}_3$ of the satellite.
+    \item \textbf{Hint: Recall that Gauss' method requires you to find the roots of a 8th degree polynomial. You may
+    use the roots() command in matlab to do so.} Also note that Of the 8 roots, 4 are imaginary, and you can
+    reject them. But there will be 4 real roots. Negative roots can also be rejected. However, if you obtain three
+    positive real roots, you have to now figure out which of the roots is a viable value for $|\bm{r}_2|$. You may need to
+    identify all the orbits involved to make this decision.
+    \item Using the three position vectors you have obtained by employing the Gauss' method, perform Gibb's method
+    to find the position and velocity of the middle measurement. \textit{(Note that there are 24 measurements, so you
+    will have to Perform Gauss method 8 times. It may be useful to write a function that does this.)}
+    \item Convert this position and velocity pair to orbital elements.
+    \item After performing these three tasks above, how many unique orbits do you observe? Enter your answer in the
+    following form:
+    % include table
+    \item Plot all of these orbits in one plot. Just by observation can you identify the potential locations of the delta-v
+    maneuvers? Show them on the plot. Also, mark with arrows the direction of motion of your spacecraft.
+    \item Finally perform the task you were assigned in the analytic part to identify each delta-v that explains the
+    measurements and the orbits you have got. Fill in your answers as follows:
+    % include tabe
 \end{enumerate}
 
 \end{document}
