@@ -36,7 +36,6 @@ raan = deg2rad(30);
 r_peri = r*[cos(f) sin(f) 0]';
 r_eci = inv(R3(aop1)*R1(I)*R3(raan))*r_peri;
 
-r*inv(R3(aop1+f)*R1(I)*R3(raan))*[1 0 0]'
 
 % r_peri = r*[cos(f-dw) sin(f-dw) 0]';
 % r_eci = inv(R3(aop2)*R1(I)*R3(raan))*r_peri;
@@ -52,11 +51,10 @@ v_orb2 = [vr2 vt2 0]'; v2 = norm(v_orb2);
 v_eci1 = inv(R3(aop1+f)*R1(I)*R3(raan))*v_orb1;
 v_eci2 = inv(R3(aop1+f)*R1(I)*R3(raan))*v_orb2;
 
-norm(v_eci1-v_eci2);
-dV = sqrt(v1^2 + v2^2 - 2*dot(v_orb1,v_orb2));
+norm(v_eci1-v_eci2)
 
-matrix = R3(aop2+f)*R1(I)*R3(raan);
-latex(sym(inv(matrix)))
+
+
 
 
 

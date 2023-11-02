@@ -5,7 +5,6 @@
 \graphicspath{{Graphics/}}
 
 \usepackage{amsmath}
-\usepackage{textcomp}
 
 \usepackage{bm}
 
@@ -31,7 +30,7 @@
 
 \maketitle
 
-\newpage
+% \newpage
 
 \section{PROJECT STATEMENT: MANEUVER RECONSTRUCTION}
 
@@ -52,7 +51,7 @@ one such maneuver reconstruction is shown as follows:
     \label{fig:maneuver_reconstruction_schematic}
 \end{figure}
 
-We will utilize Gauss’ initial orbit determination to identify the orbit that the spacecraft occupies before and
+We will utilize Gauss' initial orbit determination to identify the orbit that the spacecraft occupies before and
 after the maneuver and calculate how much delta-v was used to transfer between them.
 
 
@@ -79,7 +78,7 @@ and that on the second orbit is:
 If the two orbits intersect, the two radial distances must be equal:
 \[ r_1=r_2=r \]
 Our aim in this analytical part of the project is to find the value of the radius where the two orbits intersect. This
-leads to a quadratic equation in the free variable $r$. Let’s go about this step-by-step.
+leads to a quadratic equation in the free variable $r$. Let's go about this step-by-step.
 
 \raggedright \textit{A. Derivation of radius of intersecting orbits}
 \begin{enumerate}
@@ -302,12 +301,14 @@ Now, consider two sets of orbital elements of two spacecraft:
     \[ \vec{r}_{ECI}=\bm{C}^{-1}_{ON}\vec{r}_{orbital}=[-6988.98\quad 6531.78\quad 3330.75]^T \]
     \[ \vec{v}_{ECI,1}=\bm{C}^{-1}_{ON,1}\vec{v}_{orbital,1}=[ -5.76386\quad -3.84599\quad -0.16335]^T \]
     \[ \vec{v}_{ECI,2}=\bm{C}^{-1}_{ON,2}\vec{v}_{orbital,2}=[-4.03629\quad -2.69071\quad -0.11359]^T \]
-
-
-
     \item Compute the delta-v at the intersection point to transfer from one orbit to another.
     
     \textbf{SOLUTION:}
+    Calculating the delta-v ($\Delta V$):
+    \[ \Delta V=|\vec{v}_{ECI,2}-\vec{v}_{ECI,1}| \]
+    \[ \Delta V=|[-1.72757\quad -1.15529\quad -0.04976]^T| \]
+    \[ \Delta V=\sqrt{(-1.72757)^2+(-1.15529)^2+(-1.15529)^2} \]
+    \[ \Delta V=2.0789\;\frac{km}{s} \]
 
 \end{enumerate}
 
