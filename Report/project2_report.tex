@@ -5,6 +5,7 @@
 \graphicspath{{Graphics/}}
 
 \usepackage{amsmath}
+\usepackage{textcomp}
 
 \usepackage{bm}
 
@@ -241,9 +242,66 @@ Now, consider two sets of orbital elements of two spacecraft:
     \[ f=cos^{-1}(0.5596)=55.9689^{\circ}/-55.9689^{\circ} \]
     \[ f=sin^{-1}(0.8287)=55.9689^{\circ}/124.0311^{\circ} \]
     Using the value that is similar, $f=55.9689^{\circ}$.
-    Finding the position vector in the perifocal reference frame of the first orbit:
-    \[ \vec{r}_{perifocal}=r[cos(f)\quad sin(f)\quad 0]^T=[5668.82\quad 8394.54\quad 0]^T \]
+    Finding the position vector in the orbital reference frame of the first orbit:
+    \[ \vec{r}_{orbital}=[r\quad 0\quad 0]^T=[10129.35\quad 0\quad 0]^T \]
+    Calculating the magnitude of angular momentum ($h$) of each orbit ($\mu_e=398600.4418\frac{km^3}{s^2}$):
+    \[ h_n=\sqrt{\mu_{e} p_n} \]
+    \[ h_1=\sqrt{\mu_{e} p_1}=68669.08 \]
+    \[ h_2=\sqrt{\mu_{e} p_2}=48068.36 \]
+    There will be two velocity vectors at the intersection, one for each orbit. Calculating 
+    the radial and tangential components of each velocity ($v_{r}$ and $v_{\theta}$ respectively) in the orbital 
+    reference frame of the first orbit (all in $\frac{km}{s}$):
+    \[ v_{r,1}=\frac{h_1}{r}\;\frac{e_1sin(f)}{1+e_1cos(f)}=1.44315 \]
+    \[ v_{r,2}=\frac{h_2}{r}\;\frac{e_2sin(f-\Delta\omega)}{1+e_2cos(f-\Delta\omega)}=1.01251 \]
+    \[ v_{\theta,1}=\frac{h_1}{r}=6.77922 \]
+    \[ v_{\theta,2}=\frac{h_2}{r}=4.74545 \]
+    Constructing the velocity vectors in the orbital frame:
+    \[ \vec{v}_{orbital,n}=[v_{r,n}\quad v_{\theta,n}\quad 0]^T \]
+    \[ \vec{v}_{orbital,1}=[v_{r,1}\quad v_{\theta,1}\quad 0]^T=[1.44315\quad 6.77922\quad 0]^T \]
+    \[ \vec{v}_{orbital,2}=[v_{r,2}\quad v_{\theta,2}\quad 0]^T=[1.01251\quad 4.74545\quad 0]^T \]
+    Converting the three vectors from orbital frame to inertial (ECI) frame by using 
+    a 3-1-3 rotation by angles $(\omega+f)$, $I$, $\Omega$:
+    \[ \vec{r}_{orbital}=\bm{C}_{ON}\vec{r}_{ECI} \]
+    \begin{equation}
+        \vec{r}_{ECI}=\bm{C}^{-1}_{ON}\vec{r}_{orbital}
+        \label{eq:DCMtransform}
+    \end{equation}
+    where $\bm{C}_{ON}$ is:
+    \[ \bm{C}_{ON}=
+    \begin{bmatrix}
+        \cos(\omega+f) & \sin(\omega+f) & 0 \\
+        -\sin(\omega+f) & \cos(\omega+f) & 0 \\
+        0 & 0 & 1 \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        1 & 0 & 0 \\
+        0 & \cos(I) & \sin(I) \\
+        0 & -\sin(I) & \cos(I) \\
+    \end{bmatrix}
+    \begin{bmatrix}
+        \cos(\Omega) & \sin(\Omega) & 0 \\
+        -\sin(\Omega) & \cos(\Omega) & 0 \\
+        0 & 0 & 1 \\
+    \end{bmatrix} \]
+    $I$ is the inclination, where $I=20^{\circ}$ for both orbits.
+    $\Omega$ is right ascension of the ascending node, where $\Omega=30^{\circ}$ for both orbits.
+    $f$ is the true anomaly relative to the first orbit, where $f=55.9689^{\circ}$ for both orbits.
+    $\omega$ is the argument of perigee, where $\omega_1=50^{\circ}$ for the first orbit and 
+    $\omega_2=301.901^{\circ}$ for the second orbit.
 
+    Calculating $\bm{C}^{-1}_{ON}$ for both orbits:
+    \[ \bm{C}^{-1}_{ON,1}=
+    \begin{bmatrix}
+        -0.6900 & -0.7033 & 0.1710\\ 0.6448 & -0.7046 & -0.2962\\ 0.3288 & -0.0941 & 0.9397
+    \end{bmatrix}\]
+    \[ \bm{C}^{-1}_{ON,2}=
+    \begin{bmatrix}
+        0.8829 & -0.4373 & 0.1710\\ 0.4694 & 0.8318 & -0.2962\\ -0.0127 & 0.3418 & 0.9397
+    \end{bmatrix}\]
+    Obtaining position and velocity vectors using equation \eqref{eq:DCMtransform}:
+    \[ \vec{r}_{ECI}=\bm{C}^{-1}_{ON}\vec{r}_{orbital}=[-6988.98\quad 6531.78\quad 3330.75]^T \]
+    \[ \vec{v}_{ECI,1}=\bm{C}^{-1}_{ON,1}\vec{v}_{orbital,1}=[ -5.76386\quad -3.84599\quad -0.16335]^T \]
+    \[ \vec{v}_{ECI,2}=\bm{C}^{-1}_{ON,2}\vec{v}_{orbital,2}=[-4.03629\quad -2.69071\quad -0.11359]^T \]
 
 
 
