@@ -1,4 +1,3 @@
-% Document Set-Up
 \documentclass[12pt, letterpaper]{aiaa-tc}
 
 \usepackage{graphicx}
@@ -14,7 +13,8 @@
 \usepackage{titlesec}
 
 \title{Project 2: Maneuver Reconstruction}
-\author{Tyson Warner and Jack Pence}
+% \author{Tyson Warner}
+
 \date{November 12, 2023}
 
 \setlength{\parskip}{1em}
@@ -30,7 +30,11 @@
 
 \maketitle
 
-% \newpage
+\author{Jack Pence}\thanks{ - I have neither given nor received assistance on this project}
+
+\author{Tyson Warner}\thanks{ - I have neither given nor received assistance on this project}
+
+\newpage
 
 \section{PROJECT STATEMENT: MANEUVER RECONSTRUCTION}
 
@@ -47,7 +51,7 @@ one such maneuver reconstruction is shown as follows:
 \begin{figure}[h]
     \centering
     \includegraphics[width=0.75\textwidth]{maneuver_reconstruction_schematic}
-    \caption{Maneuver Reconstruction Schematic.}
+    \caption{Maneuver Reconstruction Schematic}
     \label{fig:maneuver_reconstruction_schematic}
 \end{figure}
 
@@ -304,6 +308,7 @@ Now, consider two sets of orbital elements of two spacecraft:
     \item Compute the delta-v at the intersection point to transfer from one orbit to another.
     
     \textbf{SOLUTION:}
+    
     Calculating the delta-v ($\Delta V$):
     \[ \Delta V=|\vec{v}_{ECI,2}-\vec{v}_{ECI,1}| \]
     \[ \Delta V=|[-1.72757\quad -1.15529\quad -0.04976]^T| \]
@@ -315,6 +320,13 @@ Now, consider two sets of orbital elements of two spacecraft:
 \section{NUMERICAL PART}
 Now that you have performed the analytic part, the numerical part will have you implement an Initial Orbit
 Determination Algorithm. The following data has been provided to you:
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.75\textwidth]{num_data}
+    \caption{Measurement Data}
+    \label{fig:num_data}
+\end{figure}
 
 % include table
 In this data,
@@ -336,23 +348,256 @@ You may also load this data in using the .mat file attached using the matlab com
 \begin{enumerate}
     \item Taking 3 measurements at a time in sequence, perform the Gauss' method of Initial Orbit Determination to
     obtain the value of $\bm{r}_1$, $\bm{r}_2$, and $\bm{r}_3$ of the satellite.
+    
+    \textbf{SOLUTION:}
+    
+    Gauss' Method for Initial Orbit Determination was used to find the position vectors from the given dataset. 
+    The multiple solutions for data set 7 and data set 8 are explained in task 2. Below are three tables of the 
+    three position vectors obtained using Gauss' Method.
+
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|lll|}
+        \hline
+        Dataset & $\bm{r}_{1,x}$                & $\bm{r}_{1,y}$                & $\bm{r}_{1,z}$        \\ \hline
+        1       & \multicolumn{1}{l|}{3457.9}   & \multicolumn{1}{l|}{456.5}    & -6006.4  \\ \hline
+        2       & \multicolumn{1}{l|}{7943.6}   & \multicolumn{1}{l|}{7659.6}   & 6412.1   \\ \hline
+        3       & \multicolumn{1}{l|}{-884.5}   & \multicolumn{1}{l|}{4073.1}   & 14345.4  \\ \hline
+        4       & \multicolumn{1}{l|}{3391.9}   & \multicolumn{1}{l|}{11323.5}  & 27356.6  \\ \hline
+        5       & \multicolumn{1}{l|}{-10566.6} & \multicolumn{1}{l|}{-947.7}   & 19721.8  \\ \hline
+        6       & \multicolumn{1}{l|}{12872.5}  & \multicolumn{1}{l|}{17737.9}  & 26671.5  \\ \hline
+        7a      & \multicolumn{1}{l|}{-54161.3} & \multicolumn{1}{l|}{-13129.4} & 130877.6 \\ \hline
+        7b      & \multicolumn{1}{l|}{-16248.9} & \multicolumn{1}{l|}{-4289.4}  & 49696.2  \\ \hline
+        7c      & \multicolumn{1}{l|}{23032.2}  & \multicolumn{1}{l|}{4869.7}   & -34415.9 \\ \hline
+        8a      & \multicolumn{1}{l|}{121425.7} & \multicolumn{1}{l|}{134662.5} & 277952.1 \\ \hline
+        8b      & \multicolumn{1}{l|}{11438.0}  & \multicolumn{1}{l|}{19706.5}  & 35760.7  \\ \hline
+        8c      & \multicolumn{1}{l|}{-19200.7} & \multicolumn{1}{l|}{-12316.2} & -31705.4 \\ \hline
+        \end{tabular}
+        \label{g_m_1}
+        \caption{Obtaining $\bm{r}_{1}$ using Gauss' Method}
+    \end{table}
+
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|lll|}
+        \hline
+        Dataset & $\bm{r}_{2,x}$                & $\bm{r}_{2,y}$                & $\bm{r}_{2,z}$          \\ \hline
+        1       & \multicolumn{1}{l|}{3482.6}   & \multicolumn{1}{l|}{479.0}    & -5990.6  \\ \hline
+        2       & \multicolumn{1}{l|}{7928.3}   & \multicolumn{1}{l|}{7663.9}   & 6458.1   \\ \hline
+        3       & \multicolumn{1}{l|}{-916.9}   & \multicolumn{1}{l|}{4050.9}   & 14346.8  \\ \hline
+        4       & \multicolumn{1}{l|}{3354.0}   & \multicolumn{1}{l|}{11303.6}  & 27377.0  \\ \hline
+        5       & \multicolumn{1}{l|}{-10587.2} & \multicolumn{1}{l|}{-983.8}   & 19655.6  \\ \hline
+        6       & \multicolumn{1}{l|}{12845.2}  & \multicolumn{1}{l|}{17744.2}  & 26749.4  \\ \hline
+        7a      & \multicolumn{1}{l|}{-54646.4} & \multicolumn{1}{l|}{-13456.3} & 130506.8 \\ \hline
+        7b      & \multicolumn{1}{l|}{-16428.0} & \multicolumn{1}{l|}{-4390.5}  & 49562.3  \\ \hline
+        7c      & \multicolumn{1}{l|}{23170.7}  & \multicolumn{1}{l|}{5002.7}   & -34305.6 \\ \hline
+        8a      & \multicolumn{1}{l|}{120153.2} & \multicolumn{1}{l|}{134070.5} & 278853.6 \\ \hline
+        8b      & \multicolumn{1}{l|}{11266.5}  & \multicolumn{1}{l|}{19620.0}  & 35863.3  \\ \hline
+        8c      & \multicolumn{1}{l|}{-19066.1} & \multicolumn{1}{l|}{-12262.5} & -31826.5 \\ \hline
+        \end{tabular}
+        \label{g_m_2}
+        \caption{Obtaining $\bm{r}_{2}$ using Gauss' Method}
+    \end{table}
+
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|lll|}
+        \hline
+        Dataset & $\bm{r}_{3,x}$                & $\bm{r}_{3,y}$                & $\bm{r}_{3,z}$          \\ \hline
+        1       & \multicolumn{1}{l|}{3507.3}   & \multicolumn{1}{l|}{501.5}    & -5974.6  \\ \hline
+        2       & \multicolumn{1}{l|}{7912.8}   & \multicolumn{1}{l|}{7668.1}   & 6504.0   \\ \hline
+        3       & \multicolumn{1}{l|}{-949.3}   & \multicolumn{1}{l|}{4028.6}   & 14348.1  \\ \hline
+        4       & \multicolumn{1}{l|}{3316.2}   & \multicolumn{1}{l|}{11283.7}  & 27397.1  \\ \hline
+        5       & \multicolumn{1}{l|}{-10607.5} & \multicolumn{1}{l|}{-1019.8}  & 19589.2  \\ \hline
+        6       & \multicolumn{1}{l|}{12817.7}  & \multicolumn{1}{l|}{17750.3}  & 26827.1  \\ \hline
+        7a      & \multicolumn{1}{l|}{-55131.5} & \multicolumn{1}{l|}{-13783.1} & 130135.9 \\ \hline
+        7b      & \multicolumn{1}{l|}{-16606.9} & \multicolumn{1}{l|}{-4491.5}  & 49427.7  \\ \hline
+        7c      & \multicolumn{1}{l|}{23308.5}  & \multicolumn{1}{l|}{5135.6}   & -34194.2 \\ \hline
+        8a      & \multicolumn{1}{l|}{118880.7} & \multicolumn{1}{l|}{133478.4} & 279755.1 \\ \hline
+        8b      & \multicolumn{1}{l|}{11094.7}  & \multicolumn{1}{l|}{19532.9}  & 35965.0  \\ \hline
+        8c      & \multicolumn{1}{l|}{-18930.8} & \multicolumn{1}{l|}{-12208.3} & -31946.5 \\ \hline
+        \end{tabular}
+        \label{g_m_3}
+        \caption{Obtaining $\bm{r}_{3}$ using Gauss' Method}
+    \end{table}
+
+    \newpage
+
     \item \textbf{Hint: Recall that Gauss' method requires you to find the roots of a 8th degree polynomial. You may
     use the roots() command in matlab to do so.} Also note that Of the 8 roots, 4 are imaginary, and you can
     reject them. But there will be 4 real roots. Negative roots can also be rejected. However, if you obtain three
     positive real roots, you have to now figure out which of the roots is a viable value for $|\bm{r}_2|$. You may need to
     identify all the orbits involved to make this decision.
+    
+    \textbf{SOLUTION:}
+
+    In the dataset given, it can be seen that observatory measurements were recorded in sets of 3 measurements and 8 total sets 
+    were recorded. With the given data, Gauss' method of Initial Orbit Determination can be used to obtain three position 
+    vectors of the satellite: $\bm{r}_{1}$, $\bm{r}_{2}$, and $\bm{r}_{3}$. In this algorithm, an 8th degree polynomial involving the magnitude of the $\bm{r}_{2}$ vector 
+    needs to be solved which results in 8 roots. Immediately, complex roots and negative real roots can be rejected as those are 
+    not realistic values for a radius magnitude. For most of the sets of data in this project, this results in one remaining root. However, 
+    in two of the sets of data, this resulted in three valid roots. In Table 4, the valid roots of the 8th degree polynomial can be found.
+    
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|l|}
+        \hline
+        Dataset & $|\bm{r}_{2}|$ \\ \hline
+        1       & 6945.9       \\ \hline
+        2       & 12778.9      \\ \hline
+        3       & 14935.9      \\ \hline
+        4       & 29808.0      \\ \hline
+        5       & 22347.2      \\ \hline
+        6       & 34574.4      \\ \hline
+        7a      & 142124.3     \\ \hline
+        7b      & 52398.3      \\ \hline
+        7c      & 41698.7      \\ \hline
+        8a      & 331920.2     \\ \hline
+        8b      & 42403.5      \\ \hline
+        8c      & 39074.4      \\ \hline
+        \end{tabular}
+        \label{8poly}
+        \caption{8th degree polynomial roots}
+    \end{table}
+
+    From the valid roots above, the position vectors were calculated using Gauss’ method. For the 7th and 8th dataset, a position 
+    vector was calculated for each possible root. These possibilities were later analyzed for their validity by analyzing the orbit. 
+    The position vectors from the observations can be seen in the tables from task 1.
+    
     \item Using the three position vectors you have obtained by employing the Gauss' method, perform Gibb's method
     to find the position and velocity of the middle measurement. \textit{(Note that there are 24 measurements, so you
     will have to Perform Gauss method 8 times. It may be useful to write a function that does this.)}
+    
+    \textbf{SOLUTION:}
+    
+    Next, using these positions, a velocity vector was calculated utilizing Gibb’s method. This method requires the three position 
+    vectors previously calculated to calculate the corresponding velocity at position 2, $\bm{v}_{2}$. These values can be seen in the followng table.
+
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|lll|}
+        \hline
+        Dataset & $\bm{v}_{2,x}$              & $\bm{v}_{2,y}$              & $\bm{v}_{2,z}$        \\ \hline
+        1       & \multicolumn{1}{l|}{5.078}  & \multicolumn{1}{l|}{4.624}  & 3.266  \\ \hline
+        2       & \multicolumn{1}{l|}{-1.615} & \multicolumn{1}{l|}{0.445}  & 4.819  \\ \hline
+        3       & \multicolumn{1}{l|}{-3.399} & \multicolumn{1}{l|}{-2.334} & 0.141  \\ \hline
+        4       & \multicolumn{1}{l|}{-1.817} & \multicolumn{1}{l|}{-0.954} & 0.972  \\ \hline
+        5       & \multicolumn{1}{l|}{-0.982} & \multicolumn{1}{l|}{-1.729} & -3.183 \\ \hline
+        6       & \multicolumn{1}{l|}{-0.862} & \multicolumn{1}{l|}{0.196}  & 2.446  \\ \hline
+        7a      & \multicolumn{1}{l|}{-0.862} & \multicolumn{1}{l|}{0.196}  & 2.446  \\ \hline
+        7b      & \multicolumn{1}{l|}{0.000}  & \multicolumn{1}{l|}{0.000}  & 0.000  \\ \hline
+        7c      & \multicolumn{1}{l|}{1.935}  & \multicolumn{1}{l|}{1.863}  & 1.553  \\ \hline
+        8a      & \multicolumn{1}{l|}{-0.862} & \multicolumn{1}{l|}{0.196}  & 2.446  \\ \hline
+        8b      & \multicolumn{1}{l|}{-2.405} & \multicolumn{1}{l|}{-1.216} & 1.431  \\ \hline
+        8c      & \multicolumn{1}{l|}{1.935}  & \multicolumn{1}{l|}{1.863}  & 1.553  \\ \hline
+        \end{tabular}
+        \caption{Velocity Vector at Position 2 for Each Dataset}
+    \end{table}
+
+    In this table it can immediately be seen that the 7b velocity of all zeros is not realistic and can be rejected. To determine whether or not the other 
+    solutions were valid for both the 7th and 8th datasets, the orbits were plotted. To plot the orbits, the two-body problem was solved using MATLAB’s ode45 
+    function with the initial conditions being the $\bm{r}_{2}$ and corresponding $\bm{v}_{2}$ previously calculated. 
+    
+    In the first plots analyzed, the first seven sets of data were used. It was shown that the 7a values resulted in a plot with imaginary numbers which is not 
+    realistic. With the 7b values already being rejected due having no velocity, the 7c values was chosen to be the correct orbit from the dataset given. 
+    In addition, the orbit from the 7c values were confirmed because it intersects the previous orbit.
+    
+    The same process was used to evaluate the validity of the 
+    three possibilities for the 8th dataset. The 8a values resulted in an orbit with imaginary numbers 
+    which is not realistic. The 8c values resulted in an orbit that did not intersect the previous orbit meaning it would not be possible for there to be one delta 
+    V maneuver. It would be possible with two delta V maneuvers, but that is outside the scope of this project. Therefore, the 8b values were chosen. 
+    In addition, the orbit from the 8b values confirmed because there was no orbital maneuver from the previous orbit (7c).
+
     \item Convert this position and velocity pair to orbital elements.
+    
+    \textbf{SOLUTION:}
+
+    The orbital elements were then calculated for each of the datasets to determine where the orbital transfers occurred. These values can be seen in the following table.
+
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+        Dataset & Semi-major axis, a (km) & Eccentricity, e & Inclination, I (rad) & RAAN (rad) & AOP (rad) \\ \hline
+        1       & 7000.0                  & 0.010           & 1.309                & 0.611      & -1.798    \\ \hline
+        2       & 10965.0                 & 0.368           & 1.309                & 0.611      & -1.798    \\ \hline
+        3       & 10965.0                 & 0.368           & 1.309                & 0.611      & -1.798    \\ \hline
+        4       & 18464.8                 & 0.625           & 1.309                & 0.611      & -1.798    \\ \hline
+        5       & 18465.1                 & 0.625           & 1.309                & 0.611      & -1.798    \\ \hline
+        6       & 24465.0                 & 0.717           & 1.309                & 0.611      & -1.798    \\ \hline
+        7       & 41999.7                 & 0.010           & 1.309                & 0.611      & -1.798    \\ \hline
+        8       & 41999.9                 & 0.010           & 1.309                & 0.611      & -1.798    \\ \hline
+        \end{tabular}
+        \caption{Orbital Elements for Each Dataset}
+    \end{table}
+
+    \newpage
+
+    In this table it can be seen that the orbital maneuvers occurred between dataset 1 and 2, 3 and 4, 5 and 6, and 6 and 7. 
+    In total, there are four orbital maneuvers. The orbital elements of the unique orbits can be found in the table of task 5. 
+    Additionally, datasets 2/3, 4/5, and 7/8 have the same orbital elements; the table in task 5 was reduced to avoid redundancy.
+
     \item After performing these three tasks above, how many unique orbits do you observe? Enter your answer in the
     following form:
-    % include table
+
+    \textbf{SOLUTION:}
+
+    In total, there were four orbital maneuvers and five unique orbits. The orbital elements of the five orbits can be found in the table below.
+    
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|l|l|l|l|l|}
+        \hline
+        Orbit & Semi-major axis, a (km) & Eccentricity, e & Inclination, I (rad) & RAAN (rad) & AOP (rad) \\ \hline
+        1     & 7000.0                  & 0.010           & 1.309                & 0.611      & -1.798    \\ \hline
+        2     & 10965.0                 & 0.368           & 1.309                & 0.611      & -1.798    \\ \hline
+        3     & 18465.0                 & 0.625           & 1.309                & 0.611      & -1.798    \\ \hline
+        4     & 24465.0                 & 0.717           & 1.309                & 0.611      & -1.798    \\ \hline
+        5     & 41999.8                 & 0.010           & 1.309                & 0.611      & -1.798    \\ \hline
+        \end{tabular}
+        \caption{Orbital Elements for Each Unique Orbit}
+    \end{table}
+
     \item Plot all of these orbits in one plot. Just by observation can you identify the potential locations of the delta-v
     maneuvers? Show them on the plot. Also, mark with arrows the direction of motion of your spacecraft.
+
+    \textbf{SOLUTION:}
+
+    With the final selected values, the orbits reflected in the dataset given can be found in the figure below.
+
+    \begin{figure}[h]
+        \centering
+        \includegraphics[width=0.75\textwidth]{num_orbits}
+        \caption{Plot of Orbits}
+        \label{fig:num_orbits}
+    \end{figure}
+
+    In this plot the orbits can be seen in order of occurrence as well as the direction the spacecraft is traveling. 
+    It can be seen that the first three orbital transfers occur near the perigee point of the first four orbits, and the last orbital 
+    transfer occurs at apogee between Orbit 4 and 5.
+
+    \newpage
     \item Finally perform the task you were assigned in the analytic part to identify each delta-v that explains the
     measurements and the orbits you have got. Fill in your answers as follows:
-    % include tabe
+    
+    \textbf{SOLUTION:}
+
+    Using these orbital elements, the delta Vs can be calculated between each orbit. This process was derived in the 
+    beginning of this project in the analytical section. The calculated values can be seen in Table 6.
+
+    \begin{table}[]
+        \centering
+        \begin{tabular}{|l|l|}
+        \hline
+        Transfer & Delta V (km/s) \\ \hline
+        1        & 1.249          \\ \hline
+        2        & 0.797          \\ \hline
+        3        & 0.270          \\ \hline
+        4        & 1.429          \\ \hline
+        Total    & 3.745          \\ \hline
+        \end{tabular}
+        \caption{Delta V Values for the Orbital Maneuvers}
+    \end{table}
 \end{enumerate}
 
 \end{document}

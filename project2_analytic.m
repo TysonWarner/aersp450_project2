@@ -51,7 +51,7 @@ v_orb2 = [vr2 vt2 0]'; v2 = norm(v_orb2);
 v_eci1 = inv(R3(aop1+f)*R1(I)*R3(raan))*v_orb1;
 v_eci2 = inv(R3(aop1+f)*R1(I)*R3(raan))*v_orb2;
 
-norm(v_eci1-v_eci2)
+deltaV = norm(v_eci1-v_eci2);
 
 
 
@@ -62,7 +62,7 @@ norm(v_eci1-v_eci2)
 
 
 
-%% Graphing
+% % Graphing
 % f_graph = 1:0.1:360;
 % for i=1:size(f_graph,2)
 %     radius1(i) = p1/(1+e1*cos(f_graph(i)));
