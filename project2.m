@@ -1,4 +1,5 @@
-%% 1) Initial calculations found at beginning of the main loop.
+%% 
+%  1) Initial calculations found at beginning of the main loop.
 %     Gauss algorithm located in the Gauss function.
 %  2) The results from the Gauss alogrithm are found in the main report as
 %     well as the reasoning.
@@ -72,6 +73,8 @@ for i = 1:3:22
 end
 
 legend('Earth''s Surface','Orbit 1', 'Orbit 2', 'Orbit 3', 'Orbit 4', 'Orbit 5');
+
+disp('Refer to excel document or main report document for tables of values.');
 
 %% Calculating the delta-Vs
 for n = 2:8
